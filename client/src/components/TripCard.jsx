@@ -14,69 +14,86 @@ export default function TripCard({ trip, onTagClick }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow p-4 flex flex-col gap-3">
+    <article className="bg-white rounded-2xl shadow p-4 flex flex-col gap-3 mb-5">
       {/* รูปใหญ่ */}
       {mainPhoto && (
-        <img
-          src={mainPhoto}
-          alt={title}
-          className="w-full h-60 object-cover rounded-xl"
-        />
+        <figure>
+          <img
+            src={mainPhoto}
+            alt={title}
+            className="w-full h-60 object-cover rounded-xl"
+          />
+          <figcaption className="sr-only">{title}</figcaption>
+        </figure>
       )}
 
       {/* ชื่อสถานที่ */}
-      <a
-        href={url}
-        target="_blank"
-        className="text-xl font-bold text-blue-600 hover:underline"
-      >
-        {title}
-      </a>
+      <h2>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xl font-bold text-blue-600 hover:underline"
+        >
+          {title}
+        </a>
+      </h2>
 
       {/* คำอธิบาย */}
       <p className="text-gray-600">{shortDesc}</p>
 
       {/* รูปเล็ก 3 รูป */}
-      <div className="grid grid-cols-3 gap-2">
-        {subPhotos.map((photo, idx) => (
-          <img
-            key={idx}
-            src={photo}
-            alt={`${title}-thumb-${idx}`}
-            className="w-full h-40 object-cover rounded-lg"
-          />
-        ))}
-      </div>
+      <section aria-label="รูปเพิ่มเติม">
+        <ul className="grid grid-cols-3 gap-2">
+          {subPhotos.map((photo, idx) => (
+            <li key={idx}>
+              <img
+                src={photo}
+                alt={`${title}-thumb-${idx}`}
+                className="w-full h-40 object-cover rounded-lg"
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {/* หมวดหมู่ */}
-      <div className="flex flex-wrap gap-2">
-        {tags.map((tag, idx) => (
-          <span
-            key={idx}
-            onClick={() => onTagClick(tag)}
-            className="bg-gray-200 text-gray-700 px-2 py-1 text-xs rounded-full cursor-pointer hover:bg-gray-300"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+      <nav aria-label="แท็ก">
+        <ul className="flex flex-wrap gap-2">
+          {tags.map((tag, idx) => (
+            <li key={idx}>
+              <button
+                type="button"
+                onClick={() => onTagClick(tag)}
+                className="bg-gray-200 text-gray-700 px-2 py-1 text-xs rounded-full cursor-pointer hover:bg-gray-300"
+                aria-label={`กรองด้วยแท็ก ${tag}`}
+              >
+                {tag}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       {/* ปุ่ม */}
       <div className="flex gap-3 mt-2 items-center">
         <a
           href={url}
           target="_blank"
+          rel="noopener noreferrer"
           className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
         >
           อ่านต่อ
         </a>
         <button
+          type="button"
           onClick={handleCopy}
           className="p-2 rounded-lg border bg-gray-100 hover:bg-gray-200"
+          aria-label="คัดลอกลิงก์"
         >
           <Copy size={18} className="text-gray-600" />
         </button>
       </div>
-    </div>
+    </article>
   );
 }
