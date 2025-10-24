@@ -1,7 +1,9 @@
 import { Copy } from "lucide-react";
+import { useState } from "react";
 
 export default function TripCard({ trip, onTagClick }) {
   const { title, description, url, photos = [], tags = [] } = trip;
+  const [copied, setCopied] = useState(false);
 
   const shortDesc =
     description.length > 100 ? description.slice(0, 100) + "..." : description;
@@ -11,6 +13,8 @@ export default function TripCard({ trip, onTagClick }) {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -93,6 +97,12 @@ export default function TripCard({ trip, onTagClick }) {
         >
           <Copy size={18} className="text-gray-600" />
         </button>
+         {/* แจ้งเตือนคัดลอกแล้ว */}
+         {copied && (
+          <span className="text-green-600 text-sm transition-opacity duration-500">
+            ✅ คัดลอกลิงก์แล้ว!
+          </span>
+        )}
       </div>
     </article>
   );
