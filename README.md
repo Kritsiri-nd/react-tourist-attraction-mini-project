@@ -1,4 +1,5 @@
 # React Tourist Attraction Mini Project
+<img width="1919" height="1079" alt="travel-card" src="https://github.com/user-attachments/assets/e5f88f99-3f3a-4a5d-a41e-ec206b59fa5b" />
 
 โปรเจกต์ค้นหาสถานที่ท่องเที่ยวที่สร้างด้วย React และ Express.js
 
